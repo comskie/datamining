@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "css:dev": "tailwindcss -i ./static/src/main.css -o ./static/css/main.css -w",
     "css:build": "tailwindcss -i ./static/src/main.css -o ./static/css/main.css"
   },
