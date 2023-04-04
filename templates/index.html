@@ -1,0 +1,241 @@
+{% extends "layouts/base.html" %}
+
+
+{% block main %}
+<div class="w-full min-h-screen flex justify-center items-center p-12">
+    <form class="max-w-xl w-full" action="/predict" method="post">
+        <div class="form-control">
+            <span class="font-bold text-xl">Gender</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Male</span>
+                    <input type="radio" name="gender" class="radio radio-primary" value="male" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">Female</span>
+                    <input type="radio" name="gender" class="radio radio-primary" value="female" />
+                </label>
+            </div>
+        </div>
+        <div class="mt-4 form-control">
+            <span class="font-bold text-xl">Program</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">BSIT</span>
+                    <input type="radio" name="program" class="radio radio-primary" value="bsit" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">BSCS</span>
+                    <input type="radio" name="program" class="radio radio-primary" value="bscs" />
+                </label>
+            </div>
+        </div>
+        <div class="mt-4 form-control">
+            <span class="font-bold text-xl">Year Level</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">1st</span>
+                    <input type="radio" name="year_level" class="radio radio-primary" value="1st" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">2nd</span>
+                    <input type="radio" name="year_level" class="radio radio-primary" value="2nd" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">3rd</span>
+                    <input type="radio" name="year_level" class="radio radio-primary" value="3rd" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">4th</span>
+                    <input type="radio" name="year_level" class="radio radio-primary" value="4th" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">Graduate</span>
+                    <input type="radio" name="year_level" class="radio radio-primary" value="graduate" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">Other</span>
+                    <input type="radio" name="year_level" class="radio radio-primary" value="other" />
+                </label>
+            </div>
+        </div>
+        <div class="mt-4 form-control">
+            <span class="font-bold text-xl">What is your Senior High School strand?</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">STEM</span>
+                    <input type="radio" name="shs_strand" class="radio radio-primary" value="stem" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">HUMSS</span>
+                    <input type="radio" name="shs_strand" class="radio radio-primary" value="humss" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">GAS</span>
+                    <input type="radio" name="shs_strand" class="radio radio-primary" value="gas" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">ABM</span>
+                    <input type="radio" name="shs_strand" class="radio radio-primary" value="abm" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text"> TVL (ICT, HE) </span>
+                    <input type="radio" name="shs_strand" class="radio radio-primary" value="tvl" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">N/A</span>
+                    <input type="radio" name="shs_strand" class="radio radio-primary" value="n/a" />
+                </label>
+            </div>
+        </div>
+        <div class="mt-4 form-control">
+            <span class="font-bold text-xl">Are you a TESDA NCII / NCIII passer?</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Yes</span>
+                    <input type="radio" name="is_nc2_passer" class="radio radio-primary" value="yes" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">No</span>
+                    <input type="radio" name="is_nc2_passer" class="radio radio-primary" value="no" />
+                </label>
+            </div>
+        </div>
+        <div class="mt-4 form-control" is_>
+            <span class="font-bold text-xl">Are you an academic scholar?</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Yes</span>
+                    <input type="radio" name="is_academic_scholar" class="radio radio-primary" value="yes" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">No</span>
+                    <input type="radio" name="is_academic_scholar" class="radio radio-primary" value="no" />
+                </label>
+            </div>
+        </div>
+        <div class="mt-4 form-control">
+            <span class="font-bold text-xl">Did / Do you have all the necessary tools and resources to fully participate
+                in this course (e.g. Laptop, Personal Computer, Tablet, etc.)</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Yes</span>
+                    <input type="radio" name="has_necessary_tools" class="radio radio-primary" value="yes" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">No</span>
+                    <input type="radio" name="has_necessary_tools" class="radio radio-primary" value="no" />
+                </label>
+            </div>
+        </div>
+        <div class="mt-4 form-control">
+            <span class="font-bold text-xl">What is your total number of absences in this academic year?</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">0</span>
+                    <input type="radio" name="total_absences" class="radio radio-primary" value="0" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">1 - 4</span>
+                    <input type="radio" name="total_absences" class="radio radio-primary" value="1-4" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">5 - 10</span>
+                    <input type="radio" name="total_absences" class="radio radio-primary" value="5-10" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">> 10</span>
+                    <input type="radio" name="total_absences" class="radio radio-primary" value=">10" />
+                </label>
+            </div>
+        </div>
+        <div class="mt-4 form-control">
+            <span class="font-bold text-xl">How many years of experience do you have in programming? (In years)</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">0</span>
+                    <input type="radio" name="programming_experience" class="radio radio-primary" value="0" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">1</span>
+                    <input type="radio" name="programming_experience" class="radio radio-primary" value="1" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">2-4</span>
+                    <input type="radio" name="programming_experience" class="radio radio-primary" value="2-4" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">> 5</span>
+                    <input type="radio" name="programming_experience" class="radio radio-primary" value=">5" />
+                </label>
+            </div>
+        </div>
+        <div class="mt-4 form-control">
+            <span class="font-bold text-xl">Do you participate in any extracurricular activities at school? (e.g. Clubs,
+                Competitions, Sports, Orgs, etc.)</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Yes</span>
+                    <input type="radio" name="participates_extracurricular_activities" class="radio radio-primary"
+                        value="yes" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">No</span>
+                    <input type="radio" name="participates_extracurricular_activities" class="radio radio-primary"
+                        value="no" />
+                </label>
+            </div>
+        </div>
+        <div class="mt-4 form-control">
+            <span class="font-bold text-xl">Do you have challenges in fulfilling the payment of tuition?</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Yes</span>
+                    <input type="radio" name="has_tuition_challenges" class="radio radio-primary" value="yes" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">No</span>
+                    <input type="radio" name="has_tuition_challenges" class="radio radio-primary" value="no" />
+                </label>
+            </div>
+        </div>
+        <div class="mt-4 form-control">
+            <span class="font-bold text-xl">Considering your experience in CS/IT program, would you say that you are
+                satisfied with the current learning environment?</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Yes</span>
+                    <input type="radio" name="is_satisfied_with_current_learning_environment"
+                        class="radio radio-primary" value="yes" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">No</span>
+                    <input type="radio" name="is_satisfied_with_current_learning_environment"
+                        class="radio radio-primary" value="no" />
+                </label>
+            </div>
+        </div>
+
+        <div class="mt-4 form-control">
+            <span class="font-bold text-xl">Are you planning to shift course? / Did you shift course? / Have you dropped
+                out of this program?</span>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Yes</span>
+                    <input type="radio" name="shift_course"
+                        class="radio radio-primary" value="yes" />
+                </label>
+                <label class="label cursor-pointer">
+                    <span class="label-text">No</span>
+                    <input type="radio" name="shift_course"
+                        class="radio radio-primary" value="no" />
+                </label>
+            </div>
+        </div>
+
+        <div class="mt-4 flex justify-end">
+            <button class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock main %}
