@@ -21,47 +21,50 @@ class Parameter(Enum):
 SHIFT = 'shift'
 
 
-dataset = pd.read_csv('dataset.csv', index_col=False, keep_default_na=False)
+_dataset = pd.read_csv('dataset.csv', index_col=False, keep_default_na=False)
 
-shift_yes = sum(dataset[SHIFT] == 'yes')
-shift_no = sum(dataset[SHIFT] == 'no')
+_shift_yes = sum(_dataset[SHIFT] == 'yes')
+_shift_no = sum(_dataset[SHIFT] == 'no')
 
-shift_yes_percent = shift_yes / (shift_yes + shift_no)
-shift_no_percent = shift_no / (shift_yes + shift_no)
+_shift_yes_percent = _shift_yes / (_shift_yes + _shift_no)
+_shift_no_percent = _shift_no / (_shift_yes + _shift_no)
 
-shifts = {}
+_shifts = {}
 
 for parameter in Parameter:
-    values = dataset[parameter.value].unique()
+    parameter_values = _dataset[parameter.value].unique()
 
-    shifts[parameter.value] = [{
-        parameter.value: value,
-        'yes': (
-            (dataset[parameter.value] == value) & (
-                dataset[SHIFT] == 'yes')
-        ).sum() / shift_yes,
-        'no': (
-            (dataset[parameter.value] == value) & (
-                dataset[SHIFT] == 'no')
-        ).sum() / shift_no
-    } for value in values]
+    _shifts[parameter.value] = {}
 
-def get_value(parameter: Parameter, data_value: str, yes_or_no: str) -> float:
-    for shift in shifts[parameter.value]:
-        if shift[parameter.value] == data_value:
-            return shift[yes_or_no]
-        
-    raise Exception('Value not found')
+    for param_value in parameter_values:
+        _shifts[parameter.value][param_value] = {
+            'yes': (
+                (_dataset[parameter.value] == param_value) & (
+                    _dataset[SHIFT] == 'yes')
+            ).sum() / _shift_yes,
+            'no': (
+                (_dataset[parameter.value] == param_value) & (
+                    _dataset[SHIFT] == 'no')
+            ).sum() / _shift_no
+
+        }
+
+
+def _get_value(parameter: Parameter, data_value: str, yes_or_no: str) -> float:
+
+    return _shifts[parameter.value][data_value][yes_or_no]
 
 
 # Returns tuple percentage of shift yes and shift no
 def predict_naive_bayes(data: dict):
-    
-    yes_values = [get_value(parameter, data[parameter.value], 'yes') for parameter in Parameter]
-    no_values = [get_value(parameter, data[parameter.value], 'no') for parameter in Parameter]
 
-    p_yes = np.product(yes_values) * shift_yes_percent
-    p_no = np.product(no_values) * shift_no_percent
+    yes_values = [_get_value(parameter, data[parameter.value], 'yes')
+                  for parameter in Parameter]
+    no_values = [_get_value(parameter, data[parameter.value], 'no')
+                 for parameter in Parameter]
+
+    p_yes = np.product(yes_values) * _shift_yes_percent
+    p_no = np.product(no_values) * _shift_no_percent
 
     return (p_yes / (p_yes + p_no)), (p_no / (p_yes + p_no))
 
