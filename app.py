@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import predictor
 
 app = Flask(__name__)
 
@@ -13,5 +14,6 @@ def predict():
     data = request.form.to_dict()
     
     # make prediction
+    result = predictor.predict_naive_bayes(data)
 
     return render_template('predict.html')
