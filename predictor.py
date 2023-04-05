@@ -26,8 +26,8 @@ _dataset = pd.read_csv('dataset.csv', index_col=False, keep_default_na=False)
 _shift_yes = sum(_dataset[SHIFT] == 'yes')
 _shift_no = sum(_dataset[SHIFT] == 'no')
 
-_shift_yes_percent = _shift_yes / (_shift_yes + _shift_no)
-_shift_no_percent = _shift_no / (_shift_yes + _shift_no)
+_shift_yes_percent = np.divide(_shift_yes, np.add(_shift_yes, _shift_no))
+_shift_no_percent = np.divide(_shift_no, np.add(_shift_yes, _shift_no))
 
 _shifts = {}
 
@@ -38,15 +38,14 @@ for parameter in Parameter:
 
     for param_value in parameter_values:
         _shifts[parameter.value][param_value] = {
-            'yes': (
+            'yes': np.divide((
                 (_dataset[parameter.value] == param_value) & (
                     _dataset[SHIFT] == 'yes')
-            ).sum() / _shift_yes,
-            'no': (
+            ).sum(), _shift_yes),
+            'no': np.divide((
                 (_dataset[parameter.value] == param_value) & (
                     _dataset[SHIFT] == 'no')
-            ).sum() / _shift_no
-
+            ).sum(), _shift_no)
         }
 
 # Returns tuple percentage of shift yes and shift no
@@ -57,12 +56,12 @@ def predict_naive_bayes(data: dict):
     no_values = [_shifts[parameter.value][data[parameter.value]]['no']
                  for parameter in Parameter]
 
-    p_yes = np.product(yes_values) * _shift_yes_percent
-    p_no = np.product(no_values) * _shift_no_percent
+    p_yes = np.multiply(np.product(yes_values), _shift_yes_percent)
+    p_no = np.multiply(np.product(no_values), _shift_no_percent)
 
     p_total = np.sum([p_yes, p_no])
 
-    return np.divide(p_yes, p_total), np.divide(p_no, p_total) 
+    return np.divide(p_yes, p_total), np.divide(p_no, p_total)
 
 
 # print(predict_naive_bayes({
