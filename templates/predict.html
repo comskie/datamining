@@ -2,7 +2,21 @@
 
 
 {% block main %}
-<div class="min-h-screen">
+<div class="min-h-screen flex justify-center items-center w-full">
 
+    <div>
+        <h1 class="text-2xl font-bold mb-4">Predicting if the user wants to shift...</h1>
+        Probability of being true {{ yes }} %
+        <div>
+            Probability of being false
+            {{ no }} %
+        </div>
+        <div>
+            {{ message }}
+        </div>
+        <div>
+            <a href="{{ url_for('index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Go back</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
