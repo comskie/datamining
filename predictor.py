@@ -6,7 +6,6 @@ from enum import Enum
 class Parameter(Enum):
     GENDER = 'gender'
     PROGRAM = 'program'
-    YEAR_LEVEL = 'year_level'
     STRAND = 'strand'
     TESDA = 'tesda'
     SCHOLAR = 'scholar'
