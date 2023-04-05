@@ -49,24 +49,20 @@ for parameter in Parameter:
 
         }
 
-
-def _get_value(parameter: Parameter, data_value: str, yes_or_no: str) -> float:
-
-    return _shifts[parameter.value][data_value][yes_or_no]
-
-
 # Returns tuple percentage of shift yes and shift no
 def predict_naive_bayes(data: dict):
 
-    yes_values = [_get_value(parameter, data[parameter.value], 'yes')
+    yes_values = [_shifts[parameter.value][data[parameter.value]]['yes']
                   for parameter in Parameter]
-    no_values = [_get_value(parameter, data[parameter.value], 'no')
+    no_values = [_shifts[parameter.value][data[parameter.value]]['no']
                  for parameter in Parameter]
 
     p_yes = np.product(yes_values) * _shift_yes_percent
     p_no = np.product(no_values) * _shift_no_percent
 
-    return (p_yes / (p_yes + p_no)), (p_no / (p_yes + p_no))
+    p_total = np.sum([p_yes, p_no])
+
+    return np.divide(p_yes, p_total), np.divide(p_no, p_total) 
 
 
 # print(predict_naive_bayes({
@@ -83,3 +79,35 @@ def predict_naive_bayes(data: dict):
 #     Parameter.TUITION.value: 'yes',
 #     Parameter.SATISFACTION.value: 'yes',
 # }))
+# print(predict_naive_bayes({
+#     Parameter.GENDER.value: 'Female',
+#     Parameter.PROGRAM.value: 'BSIT',
+#     Parameter.STRAND.value: 'ABM',
+#     Parameter.TESDA.value: 'no',
+#     Parameter.SCHOLAR.value: 'no',
+#     Parameter.GWA.value: '84-80',
+#     Parameter.RESOURCES.value: 'no',
+#     Parameter.ABSENCES.value: '>10',
+#     Parameter.EXPERIENCE.value: '0',
+#     Parameter.ACTIVE.value: 'no',
+#     Parameter.TUITION.value: 'yes',
+#     Parameter.SATISFACTION.value: 'no',
+# }))
+# print(predict_naive_bayes({
+#     Parameter.GENDER.value: 'Female',
+#     Parameter.PROGRAM.value: 'BSCS',
+#     Parameter.STRAND.value: 'TVL',
+#     Parameter.TESDA.value: 'yes',
+#     Parameter.SCHOLAR.value: 'no',
+#     Parameter.GWA.value: '95-90',
+#     Parameter.RESOURCES.value: 'yes',
+#     Parameter.ABSENCES.value: '>10',
+#     Parameter.EXPERIENCE.value: '2-4',
+#     Parameter.ACTIVE.value: 'yes',
+#     Parameter.TUITION.value: 'yes',
+#     Parameter.SATISFACTION.value: 'no',
+# }))
+# for parameter in Parameter:
+#     values = pd.DataFrame(_shifts[parameter.value]).transpose()
+#     values = values.add_prefix('shifted_')
+#     print(values)
