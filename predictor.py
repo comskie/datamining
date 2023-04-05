@@ -109,4 +109,74 @@ def predict_naive_bayes(data: dict):
 # for parameter in Parameter:
 #     values = pd.DataFrame(_shifts[parameter.value]).transpose()
 #     values = values.add_prefix('shifted_')
+#     print(parameter.value)
 #     print(values)
+# gender
+#         shifted_yes  shifted_no
+# Male       0.615385    0.647059
+# Female     0.384615    0.352941
+#
+# program
+#       shifted_yes  shifted_no
+# BSCS     0.615385    0.823529
+# BSIT     0.384615    0.176471
+#
+#  strand
+#        shifted_yes  shifted_no
+# TVL       0.230769    0.529412
+# N/A       0.230769    0.176471
+# HUMSS     0.153846    0.058824
+# STEM      0.153846    0.058824
+# GAS       0.153846    0.117647
+# ABM       0.076923    0.058824
+#
+# tesda
+#      shifted_yes  shifted_no
+# no      0.769231    0.647059
+# yes     0.230769    0.352941
+#
+# scholar
+#      shifted_yes  shifted_no
+# yes          0.0    0.235294
+# no           1.0    0.764706
+#
+# gwa
+#        shifted_yes  shifted_no
+# 95-90     0.076923    0.294118
+# 89-85     0.230769    0.470588
+# 84-80     0.461538    0.176471
+# 79-75     0.230769    0.058824
+#
+# resources
+#      shifted_yes  shifted_no
+# yes     0.538462    0.882353
+# no      0.461538    0.117647
+#
+# absences
+#       shifted_yes  shifted_no
+# 0        0.076923    0.294118
+# >10      0.384615    0.000000
+# 1-4      0.153846    0.705882
+# 5-10     0.384615    0.000000
+#
+# experience
+#      shifted_yes  shifted_no
+# 2-4     0.230769    0.647059
+# 0       0.307692    0.117647
+# 1       0.384615    0.117647
+# >5      0.076923    0.117647
+# 
+# active
+#      shifted_yes  shifted_no
+# yes     0.230769    0.352941
+# no      0.769231    0.647059
+# 
+# tuition
+#      shifted_yes  shifted_no
+# no      0.384615    0.352941
+# yes     0.615385    0.647059
+# 
+# satisfaction
+#      shifted_yes  shifted_no
+# yes     0.538462    0.705882
+# no      0.461538    0.294118
