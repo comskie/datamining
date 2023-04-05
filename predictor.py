@@ -55,7 +55,6 @@ for program in programs:
 
 # SHS Strands
 shs_strands = dataset[Parameter.STRAND.value].unique()
-print(shs_strands)
 
 shift_yes_by_shs_strands = {}
 shift_no_by_shs_strands = {}
@@ -223,11 +222,9 @@ def predict_naive_bayes(data):
         shift_no_by_satisfied_in_learning_environments[satisfaction] * \
         shift_no_percent
 
-    print(p_yes, p_no)
     return (p_yes / (p_yes + p_no)), (p_no / (p_yes + p_no))
 
 
-# print(shift_yes_by_total_absences)
 # print(predict_naive_bayes({
 #     Parameter.GENDER.value: 'Male',
 #     Parameter.PROGRAM.value: 'BSIT',
