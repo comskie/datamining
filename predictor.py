@@ -46,10 +46,12 @@ for parameter in Parameter:
         ).sum() / shift_no
     } for value in values]
 
-def get_value(parameter: Parameter, data_value: str, yes_or_no: str):
+def get_value(parameter: Parameter, data_value: str, yes_or_no: str) -> float:
     for shift in shifts[parameter.value]:
         if shift[parameter.value] == data_value:
             return shift[yes_or_no]
+        
+    raise Exception('Value not found')
 
 
 # Returns tuple percentage of shift yes and shift no
@@ -64,17 +66,17 @@ def predict_naive_bayes(data: dict):
     return (p_yes / (p_yes + p_no)), (p_no / (p_yes + p_no))
 
 
-print(predict_naive_bayes({
-    Parameter.GENDER.value: 'Male',
-    Parameter.PROGRAM.value: 'BSIT',
-    Parameter.STRAND.value: 'TVL',
-    Parameter.TESDA.value: 'yes',
-    Parameter.SCHOLAR.value: 'no',
-    Parameter.GWA.value: '84-80',
-    Parameter.RESOURCES.value: 'yes',
-    Parameter.ABSENCES.value: '1-4',
-    Parameter.EXPERIENCE.value: '0',
-    Parameter.ACTIVE.value: 'yes',
-    Parameter.TUITION.value: 'yes',
-    Parameter.SATISFACTION.value: 'yes',
-}))
+# print(predict_naive_bayes({
+#     Parameter.GENDER.value: 'Male',
+#     Parameter.PROGRAM.value: 'BSIT',
+#     Parameter.STRAND.value: 'TVL',
+#     Parameter.TESDA.value: 'yes',
+#     Parameter.SCHOLAR.value: 'no',
+#     Parameter.GWA.value: '84-80',
+#     Parameter.RESOURCES.value: 'yes',
+#     Parameter.ABSENCES.value: '1-4',
+#     Parameter.EXPERIENCE.value: '0',
+#     Parameter.ACTIVE.value: 'yes',
+#     Parameter.TUITION.value: 'yes',
+#     Parameter.SATISFACTION.value: 'yes',
+# }))
