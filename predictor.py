@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 from enum import Enum
@@ -20,8 +21,7 @@ class Parameter(Enum):
 
 SHIFT = 'shift'
 
-
-_dataset = pd.read_csv('dataset.csv', index_col=False, keep_default_na=False)
+_dataset = pd.read_csv(os.getenv('DATASET_PATH', 'dataset.csv'), index_col=False, keep_default_na=False)
 
 _shift_yes = sum(_dataset[SHIFT] == 'yes')
 _shift_no = sum(_dataset[SHIFT] == 'no')
