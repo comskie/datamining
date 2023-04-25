@@ -15,9 +15,9 @@ def predict():
     data = request.form.to_dict()
 
     # make prediction
-    result = predictor.predict_naive_bayes(data)
+    result = predictor.predict_naive_bayes({predictor.Parameter(key): value for key, value in data.items()})
 
-    shift = result[0] >= predictor.THRESHOLD
+    shift = result[0] > result[1]
     message = 'You\'re good!' if not shift else 'You suck!'
 
     return render_template(
