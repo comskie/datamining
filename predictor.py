@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 from enum import Enum
 
-THRESHOLD = 0.6
 
 class Parameter(Enum):
     GENDER = 'gender'
@@ -34,28 +33,22 @@ _shifts = {}
 
 for parameter in Parameter:
     parameter_values = _dataset[parameter.value].unique()
-
-    _shifts[parameter.value] = {}
+    _shifts[parameter] = {}
 
     for param_value in parameter_values:
-        _shifts[parameter.value][param_value] = {
-            'yes': np.divide((
-                (_dataset[parameter.value] == param_value) & (
-                    _dataset[SHIFT] == 'yes')
-            ).sum(), _shift_yes),
-            'no': np.divide((
-                (_dataset[parameter.value] == param_value) & (
-                    _dataset[SHIFT] == 'no')
-            ).sum(), _shift_no)
+        _shifts[parameter][param_value] = {
+            'yes': np.divide(((_dataset[parameter.value] == param_value) & (_dataset[SHIFT] == 'yes')).sum(),
+                             _shift_yes),
+            'no': np.divide(((_dataset[parameter.value] == param_value) & (_dataset[SHIFT] == 'no')).sum(), _shift_no)
         }
 
-# Returns tuple percentage of shift yes and shift no
-def predict_naive_bayes(data: dict):
 
-    yes_values = [_shifts[parameter.value][data[parameter.value]]['yes']
-                  for parameter in Parameter]
-    no_values = [_shifts[parameter.value][data[parameter.value]]['no']
-                 for parameter in Parameter]
+# Returns tuple percentage of shift yes and shift no
+def predict_naive_bayes(data: dict[Parameter, str]):
+    yes_values = [_shifts[key][value]['yes']
+                  for key, value in data.items()]
+    no_values = [_shifts[key][value]['no']
+                 for key, value in data.items()]
 
     p_yes = np.multiply(np.product(yes_values), _shift_yes_percent)
     p_no = np.multiply(np.product(no_values), _shift_no_percent)
@@ -66,18 +59,18 @@ def predict_naive_bayes(data: dict):
 
 
 # print(predict_naive_bayes({
-#     Parameter.GENDER.value: 'Male',
-#     Parameter.PROGRAM.value: 'BSIT',
-#     Parameter.STRAND.value: 'TVL',
-#     Parameter.TESDA.value: 'yes',
-#     Parameter.SCHOLAR.value: 'no',
-#     Parameter.GWA.value: '84-80',
-#     Parameter.RESOURCES.value: 'yes',
-#     Parameter.ABSENCES.value: '1-4',
-#     Parameter.EXPERIENCE.value: '0',
-#     Parameter.ACTIVE.value: 'yes',
-#     Parameter.TUITION.value: 'yes',
-#     Parameter.SATISFACTION.value: 'yes',
+#     Parameter.GENDER: 'Male',
+#     Parameter.PROGRAM: 'BSIT',
+#     Parameter.STRAND: 'TVL',
+#     Parameter.TESDA: 'yes',
+#     Parameter.SCHOLAR: 'no',
+#     Parameter.GWA: '84-80',
+#     Parameter.RESOURCES: 'yes',
+#     Parameter.ABSENCES: '1-4',
+#     Parameter.EXPERIENCE: '0',
+#     Parameter.ACTIVE: 'yes',
+#     Parameter.TUITION: 'yes',
+#     Parameter.SATISFACTION: 'yes',
 # }))
 # print(predict_naive_bayes({
 #     Parameter.GENDER.value: 'Female',
