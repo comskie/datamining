@@ -9,7 +9,7 @@ def index():
     return render_template('index.html')
 
 
-@app.post('/predict')
+@app.route('/predict', methods=['post'])
 def predict():
     # Get the data from the POST request.
     data = request.form.to_dict()
@@ -17,5 +17,13 @@ def predict():
     # make prediction
     result = predictor.predict_naive_bayes(data)
 
-    message = 'You\'re good!' if result[0] > result[1] else 'You suck!'
-    return render_template('predict.html', yes="{:.2f}".format(result[0]), no="{:.2f}".format(result[1]), message=message)
+    shift = result[0] >= predictor.THRESHOLD
+    message = 'You\'re good!' if not shift else 'You suck!'
+
+    return render_template(
+        'predict.html',
+        shift=shift,
+        yes="{:.2f}%".format(result[0] * 100),
+        no="{:.2f}%".format(result[1] * 100),
+        message=message,
+    )
