@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from enum import Enum
 
+THRESHOLD = 0.6
 
 class Parameter(Enum):
     GENDER = 'gender'
