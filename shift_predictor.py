@@ -18,7 +18,7 @@ class ShiftPredictor:
         self.naive_bayes.fit(X, y)
 
     @classmethod
-    def get_predictor(cls):
+    def get_instance(cls):
         if not ShiftPredictor.instance:
             ShiftPredictor.instance = ShiftPredictor()
 
@@ -26,4 +26,6 @@ class ShiftPredictor:
 
     def predict(self, data):
         self.naive_bayes.predict([data])
-        return self.naive_bayes.results_probabilities[0]
+        result = self.naive_bayes.results_probabilities[0]
+
+        return result[0] == 'yes', result[1]
