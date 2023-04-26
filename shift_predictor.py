@@ -1,16 +1,21 @@
 import os
-import numpy as np
 import pandas as pd
-from enum import Enum
+from urllib.request import urlretrieve
 
-from naive_bayes import NaiveBayes, pre_processing, train_test_split
+from naive_bayes import NaiveBayes, pre_processing
+
+DATASET_URL = os.getenv('DATASET_URL')
+DATASET_PATH = os.getenv('DATASET_PATH', 'dataset.csv')
 
 
 class ShiftPredictor:
     instance = None
 
     def __init__(self):
-        df = pd.read_csv("dataset.csv", keep_default_na=False)
+        if DATASET_URL:
+            urlretrieve(DATASET_URL, DATASET_PATH)
+
+        df = pd.read_csv(DATASET_PATH, keep_default_na=False)
 
         X, y = pre_processing(df)
 
