@@ -14,15 +14,9 @@ def predict():
     # Get the data from the POST request.
     data = request.form.to_dict().values()
 
-    # make prediction
+    result = ShiftPredictor.get_instance().predictor.predict(data)
 
-    predictor = ShiftPredictor.get_predictor()
-
-    print(data)
-    result = predictor.predict(data)
-
-    shift = result[0] == 'yes'
-    result_percent = result[1]
+    shift, result_percent = result
     message = 'You\'re good!' if not shift else 'You suck!'
 
     return render_template(
