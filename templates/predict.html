@@ -57,7 +57,13 @@
                                     </svg>
                                 {% endif %}
                             </div>
-                            <div class="stat-title">Will {% if not shift %} not {% endif %} shift</div>
+                            <div class="stat-title">
+                                {% if not shift %}
+                                    You are more likely to stay
+                                {% else %}
+                                    You are more likely to shift
+                                {% endif %}
+                            </div>
                             <div class="stat-value text-primary">
                                 {{ result_percent }}
                             </div>
