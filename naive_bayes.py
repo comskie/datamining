@@ -128,7 +128,7 @@ if __name__ == "__main__":
     print("Test Accuracy: {}".format(accuracy_score(y_test, nb_clf.predict(X_test))))
 
     # Query 1:
-    query = np.array([['Male', 'BSIT', 'TVL', 'yes', 'no', '84-80', 'yes', '1-4', '0', 'yes', 'yes', 'yes']])
+    query = np.array([['Male', 'BSIT', 'TVL', 'Yes', 'No', '84-80', 'Yes', '1-4', '0', 'Yes', 'Yes', 'Yes']])
     print("Query 1:- {} ---> {}".format(query, nb_clf.predict(query)))
     print('Probabilities:', nb_clf.results_probabilities)
 #
