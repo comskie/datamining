@@ -33,4 +33,4 @@ class ShiftPredictor:
         self.naive_bayes.predict([data])
         result = self.naive_bayes.results_probabilities[0]
 
-        return result[0] == 'yes', result[1]
+        return result[0] == 'Yes', result[1]
