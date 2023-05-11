@@ -9,6 +9,23 @@ df = pd.read_csv(DATASET_PATH, keep_default_na=False)
 dropFilter = df.filter(['Timestamp', 'Email Address', 'Participant\'s Agreement', 'ID Number', 'Year Level'])
 df = df.drop(dropFilter, axis=1)
 
+# Rename headers
+simplifiedHeaders = [
+    'gender',
+    'program',
+    'strand',
+    'tesda',
+    'scholar',
+    'gwa',
+    'resources',
+    'absences',
+    'experience',
+    'active',
+    'tuition',
+    'satisfaction',
+    'shift',
+]
+df.columns = simplifiedHeaders
 
 # Replace values
 df = df.replace(to_replace='95-90', value='100-90')
